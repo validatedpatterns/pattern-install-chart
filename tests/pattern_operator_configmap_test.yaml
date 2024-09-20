@@ -1,0 +1,43 @@
+suite: Test pattern-operator-configmap
+templates:
+  - templates/pattern-operator-configmap.yaml
+tests:
+  - it: Should output default values
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: ConfigMap
+      - containsDocument:
+          kind: ConfigMap
+          apiVersion: v1
+          name: patterns-operator-config
+          namespace: openshift-operators
+      - equal:
+          path: data["gitops.catalogSource"]
+          value: redhat-operators
+      - equal:
+          path: data["gitops.channel"]
+          value: gitops-1.13
+
+  - it: Should set gitops.catalogSource
+    set:
+      main:
+        gitops:
+          operatorSource:
+            foo
+    asserts:
+      - equal:
+          path: data["gitops.catalogSource"]
+          value: foo
+
+  - it: Should set gitops.channel
+    set:
+      main:
+        gitops:
+          channel:
+            bar
+    asserts:
+      - equal:
+          path: data["gitops.channel"]
+          value: bar

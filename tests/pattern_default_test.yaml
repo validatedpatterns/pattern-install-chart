@@ -1,0 +1,47 @@
+suite: Test pattern with default values
+templates:
+  - templates/pattern.yaml
+release:
+  name: release-test
+tests:
+  - it: Should output default values
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: Pattern
+      - containsDocument:
+          kind: Pattern
+          apiVersion: gitops.hybrid-cloud-patterns.io/v1alpha1
+          name: release-test
+          namespace: openshift-operators
+      - equal:
+          path: spec.clusterGroupName
+          value: default
+      - equal:
+          path: spec.gitSpec.targetRepo
+          value: https://github.com/pattern-clone/mypattern
+      - equal:
+          path: spec.gitSpec.targetRevision
+          value: main
+      - equal:
+          path: spec.multiSourceConfig.enabled
+          value: false
+      - notExists:
+          path: spec.gitSpec.originRepo
+      - notExists:
+          path: spec.gitSpec.tokenSecret
+      - notExists:
+          path: spec.gitSpec.tokenSecretNamespace
+      - notExists:
+          path: spec.multiSourceConfig.helmRepoUrl
+      - notExists:
+          path: spec.multiSourceConfig.clusterGroupChartVersion
+      - notExists:
+          path: spec.analyticsUUID
+      - notExists:
+          path: spec.experimentalCapabilities
+      - notExists:
+          path: spec.extraParameters
+      - notExists:
+          path: spec.extraValueFiles
