@@ -9,13 +9,13 @@ A Helm chart to build and deploy a Cloud Pattern via the patterns operator
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | global.extraValueFiles | list | `[]` | List of additional value files to be passed to the pattern |
-| main | object | `{"clusterGroupName":"default","experimentalCapabilities":"","git":{"repoURL":"https://github.com/pattern-clone/mypattern","repoUpstreamURL":null,"revision":"main"},"gitops":{"channel":"gitops-1.13","operatorSource":"redhat-operators"},"multiSourceConfig":{"clusterGroupChartVersion":null,"enabled":false,"helmRepoUrl":null},"patternsOperator":{"channel":"fast","installPlanApproval":"Automatic","source":"community-operators","sourceNamespace":"openshift-marketplace","startingCSV":null},"tokenSecret":null,"tokenSecretNamespace":null}` | main is used primarly for initial bootstrap pattern configuration |
+| main | object | depends on the individual settings | main is used primarly for initial bootstrap pattern configuration |
 | main.clusterGroupName | string | `"default"` | Name of the clusterGroup to be used. Drives the clusterGroup chart |
 | main.experimentalCapabilities | string | `""` | String to enable certain experimental capabilities in the operator and the framework. Not needed unless you know exactly what you're doing. |
-| main.git | object | `{"repoURL":"https://github.com/pattern-clone/mypattern","repoUpstreamURL":null,"revision":"main"}` | Settings related to the git repository used to deploy the pattern |
+| main.git | object | `{"repoURL":"https://github.com/pattern-clone/mypattern","repoUpstreamURL":null,"revision":"main"}` | Settings related to the Git repository used to deploy the pattern |
 | main.git.repoURL | string | `"https://github.com/pattern-clone/mypattern"` | Repository URL pointing to the pattern |
 | main.git.repoUpstreamURL | string | `nil` | Setting this field will make it so that an in-cluster gitea instance will be spawned. `repoURL` will be ignored and the pattern will be deployed using the in-gitea URL |
-| main.git.revision | string | `"main"` | The branch or git reference to use to deploy the pattern |
+| main.git.revision | string | `"main"` | The branch or Git reference to use to deploy the pattern |
 | main.gitops | object | `{"channel":"gitops-1.13","operatorSource":"redhat-operators"}` | Settings related to the gitops operator |
 | main.gitops.channel | string | `"gitops-1.13"` | Default channel to install the gitops operator from |
 | main.gitops.operatorSource | string | `"redhat-operators"` | Source to be used to install the gitops operator from |
@@ -27,7 +27,7 @@ A Helm chart to build and deploy a Cloud Pattern via the patterns operator
 | main.patternsOperator.source | string | `"community-operators"` | Source to be used to install the patterns operator from |
 | main.patternsOperator.sourceNamespace | string | `"openshift-marketplace"` | Source namespace to install the patterns operator from |
 | main.patternsOperator.startingCSV | string | `nil` | Starting CSV for the install of the patterns operator |
-| main.tokenSecret | string | `nil` | Name of the secret containing access credentials to clone the git repo to deploy the pattern See https://validatedpatterns.io/blog/2023-12-20-private-repos/ for more information |
+| main.tokenSecret | string | `nil` | Name of the secret containing access credentials to clone the Git repository to deploy the pattern See https://validatedpatterns.io/blog/2023-12-20-private-repos/ for more information |
 | main.tokenSecretNamespace | string | `nil` | Namespace where the above secret will be |
 
 ----------------------------------------------
