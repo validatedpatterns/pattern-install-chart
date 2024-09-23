@@ -6,6 +6,7 @@ global:
 # @default -- depends on the individual settings
 main:
   # -- Settings related to the Git repository used to deploy the pattern
+  # @default -- depends on the individual settings
   git:
     # -- Repository URL pointing to the pattern
     repoURL: https://github.com/pattern-clone/mypattern
@@ -38,6 +39,7 @@ main:
   # framework. Not needed unless you know exactly what you're doing.
   experimentalCapabilities: ""
 
+  # -- Settings related to the patterns operator installation
   # @default -- depends on the individual settings
   patternsOperator:
     # -- channel name to install the patterns operator from
