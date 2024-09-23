@@ -17,6 +17,7 @@ main:
     repoUpstreamURL: null
 
   # -- Settings related to the gitops operator
+  # @default -- depends on the individual settings
   gitops:
     # -- Default channel to install the gitops operator from
     channel: "gitops-1.13"
@@ -24,6 +25,7 @@ main:
     operatorSource: redhat-operators
 
   # Settings related to the multi source configuration of patterns
+  # @default -- depends on the individual settings
   multiSourceConfig:
     # -- Enables a multisource configuration for the clustergroup chart
     enabled: false
@@ -36,6 +38,7 @@ main:
   # framework. Not needed unless you know exactly what you're doing.
   experimentalCapabilities: ""
 
+  # @default -- depends on the individual settings
   patternsOperator:
     # -- channel name to install the patterns operator from
     channel: fast
