@@ -1,0 +1,10 @@
+suite: Test pattern snapshot
+templates:
+  - templates/pattern.yaml
+release:
+  name: release-test
+tests:
+  - it: gitspec.targetRepo should match snapshot
+    asserts:
+      - matchSnapshot:
+          path: spec.gitSpec.targetRepo

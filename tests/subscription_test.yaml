@@ -1,0 +1,63 @@
+suite: Test subscription without any value files
+templates:
+  - templates/subscription.yaml
+tests:
+  - it: Should output default values
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: Subscription
+      - containsDocument:
+          kind: Subscription
+          apiVersion: operators.coreos.com/v1alpha1
+          name: patterns-operator
+          namespace: openshift-operators
+      - equal:
+          path: spec.channel
+          value: fast
+      - equal:
+          path: spec.installPlanApproval
+          value: Automatic
+      - equal:
+          path: spec.source
+          value: community-operators
+      - equal:
+          path: spec.sourceNamespace
+          value: openshift-marketplace
+      - notExists:
+          path: spec.startingCSV
+
+  - it: Should set startingCSV properly when set
+    set:
+      main:
+        patternsOperator:
+          startingCSV:
+            pijamas
+    asserts:
+      - equal:
+          path: spec.channel
+          value: fast
+      - equal:
+          path: spec.installPlanApproval
+          value: Automatic
+      - equal:
+          path: spec.source
+          value: community-operators
+      - equal:
+          path: spec.sourceNamespace
+          value: openshift-marketplace
+      - equal:
+          path: spec.startingCSV
+          value: pijamas
+
+  - it: Should not have startingCSV properly when unset
+    set:
+      main:
+        patternsOperator:
+          startingCSV:
+            null
+    asserts:
+      - notExists:
+          path: spec.startingCSV
+

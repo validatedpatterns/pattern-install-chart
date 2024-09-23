@@ -1,0 +1,157 @@
+suite: Test pattern with custom values
+templates:
+  - templates/pattern.yaml
+release:
+  name: release-custom-test
+tests:
+  - it: "should render Pattern with required fields"
+    set:
+      main.clusterGroupName: "my-cluster-group"
+      main.git.repoURL: "https://github.com/example/repo.git"
+      main.git.revision: "main"
+      main.multiSourceConfig.enabled: true
+    asserts:
+      - isKind:
+          of: Pattern
+      - equal:
+          path: metadata.name
+          value: "release-custom-test"
+      - equal:
+          path: metadata.namespace
+          value: "openshift-operators"
+      - equal:
+          path: spec.clusterGroupName
+          value: "my-cluster-group"
+      - equal:
+          path: spec.gitSpec.targetRepo
+          value: "https://github.com/example/repo.git"
+      - equal:
+          path: spec.gitSpec.targetRevision
+          value: "main"
+      - equal:
+          path: spec.multiSourceConfig.enabled
+          value: true
+
+  - it: "should include originRepo when repoUpstreamURL is set"
+    set:
+      main.git.repoUpstreamURL: "https://github.com/example/upstream.git"
+    asserts:
+      - exists:
+          path: spec.gitSpec.originRepo
+      - equal:
+          path: spec.gitSpec.originRepo
+          value: "https://github.com/example/upstream.git"
+
+  - it: "should not include tokenSecret and tokenSecretNamespace when only tokenSecret is set"
+    set:
+      main.tokenSecret: "my-token-secret"
+    asserts:
+      - notExists:
+          path: spec.gitSpec.tokenSecret
+      - notExists:
+          path: spec.gitSpec.tokenSecretNamespace
+
+  - it: "should not include tokenSecret and tokenSecretNamespace when only tokenSecretNamespace is set"
+    set:
+      main.tokenSecretNamespace: "my-token-namespace"
+    asserts:
+      - notExists:
+          path: spec.gitSpec.tokenSecret
+      - notExists:
+          path: spec.gitSpec.tokenSecretNamespace
+
+  - it: "should include tokenSecret and tokenSecretNamespace when both are set"
+    set:
+      main.tokenSecret: "my-token-secret"
+      main.tokenSecretNamespace: "my-token-namespace"
+    asserts:
+      - exists:
+          path: spec.gitSpec.tokenSecret
+      - equal:
+          path: spec.gitSpec.tokenSecret
+          value: "my-token-secret"
+      - exists:
+          path: spec.gitSpec.tokenSecretNamespace
+      - equal:
+          path: spec.gitSpec.tokenSecretNamespace
+          value: "my-token-namespace"
+
+  - it: "should include helmRepoUrl when multiSourceConfig.helmRepoUrl is set"
+    set:
+      main.multiSourceConfig.helmRepoUrl: "https://charts.example.com/"
+    asserts:
+      - exists:
+          path: spec.multiSourceConfig.helmRepoUrl
+      - equal:
+          path: spec.multiSourceConfig.helmRepoUrl
+          value: "https://charts.example.com/"
+
+  - it: "should include clusterGroupChartVersion when set"
+    set:
+      main.multiSourceConfig.clusterGroupChartVersion: "1.0.0"
+    asserts:
+      - exists:
+          path: spec.multiSourceConfig.clusterGroupChartVersion
+      - equal:
+          path: spec.multiSourceConfig.clusterGroupChartVersion
+          value: "1.0.0"
+
+  - it: "should include analyticsUUID when set"
+    set:
+      main.analyticsUUID: "uuid-1234"
+    asserts:
+      - exists:
+          path: spec.analyticsUUID
+      - equal:
+          path: spec.analyticsUUID
+          value: "uuid-1234"
+
+  - it: "should include experimentalCapabilities when set"
+    set:
+      main.experimentalCapabilities: "some-feature"
+    asserts:
+      - exists:
+          path: spec.experimentalCapabilities
+      - equal:
+          path: spec.experimentalCapabilities
+          value: "some-feature"
+
+  - it: "should include extraParameters when set"
+    set:
+      main:
+        extraParameters:
+          - name: "param1"
+            value: "value1"
+          - name: "param2"
+            value: "value2"
+    asserts:
+      - exists:
+          path: spec.extraParameters
+      - equal:
+          path: spec.extraParameters[0].name
+          value: "param1"
+      - equal:
+          path: spec.extraParameters[0].value
+          value: "value1"
+      - equal:
+          path: spec.extraParameters[1].name
+          value: "param2"
+      - equal:
+          path: spec.extraParameters[1].value
+          value: "value2"
+
+  - it: "should include extraValueFiles when set"
+    set:
+      global:
+        extraValueFiles:
+          - "file1.yaml"
+          - "file2.yaml"
+    asserts:
+      - exists:
+          path: spec.extraValueFiles
+      - equal:
+          path: spec.extraValueFiles[0]
+          value: "file1.yaml"
+      - equal:
+          path: spec.extraValueFiles[1]
+          value: "file2.yaml"
