@@ -16,7 +16,7 @@ A Helm chart to build and deploy a Cloud Pattern via the patterns operator
 | main.git.repoURL | string | `"https://github.com/pattern-clone/mypattern"` | Repository URL pointing to the pattern |
 | main.git.repoUpstreamURL | string | `nil` | Setting this field will make it so that an in-cluster gitea instance will be spawned. `repoURL` will be ignored and the pattern will be deployed using the in-gitea URL |
 | main.git.revision | string | `"main"` | The branch or Git reference to use to deploy the pattern |
-| main.gitops | object | `{"channel":"gitops-1.13","operatorSource":"redhat-operators"}` | Settings related to the gitops operator |
+| main.gitops | object | depends on the individual settings | Settings related to the gitops operator |
 | main.gitops.channel | string | `"gitops-1.13"` | Default channel to install the gitops operator from |
 | main.gitops.operatorSource | string | `"redhat-operators"` | Source to be used to install the gitops operator from |
 | main.multiSourceConfig.clusterGroupChartVersion | string | `nil` | The clustergroup chart version to be used when deploying a pattern (defaults to 0.8.*) |
