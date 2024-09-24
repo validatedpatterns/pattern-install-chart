@@ -4,6 +4,16 @@
 
 A Helm chart to build and deploy a Cloud Pattern via the patterns operator
 
+This chart is used by the Validated Patterns installation script that can be found [here](https://github.com/validatedpatterns/common/blob/main/scripts/pattern-util.sh)
+
+**Homepage:** <https://github.com/validatedpatterns/pattern-install-chart>
+
+## Maintainers
+
+| Name | Email | Url |
+| ---- | ------ | --- |
+| Validated Patterns Team | <validatedpatterns@googlegroups.com> |  |
+
 ## Values
 
 | Key | Type | Default | Description |
@@ -42,3 +52,4 @@ patterns operator version:
 ```sh
 cp -v patterns-operator/config/crd/bases/gitops.hybrid-cloud-patterns.io_patterns.yaml ./crds/
 ```
+

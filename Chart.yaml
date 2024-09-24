@@ -4,3 +4,8 @@ keywords:
 - pattern
 name: pattern-install
 version: 0.0.2
+home: https://github.com/validatedpatterns/pattern-install-chart
+maintainers:
+  - name: Validated Patterns Team
+    email: validatedpatterns@googlegroups.com
+icon: https://validatedpatterns.io/images/validated-patterns.png
