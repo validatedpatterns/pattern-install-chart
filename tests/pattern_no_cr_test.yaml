@@ -1,0 +1,47 @@
+suite: Test pattern with no repoURL and no repoUpstreamURL
+templates:
+  - templates/pattern.yaml
+release:
+  name: release-test
+tests:
+  - it: Should not output anything if both repoURL and repoUpstreamURL are unset
+    set:
+      main:
+        git:
+          repoURL: null
+          repoUpstreamURL: null
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: Should output a pattern if repoURL is set
+    set:
+      main:
+        git:
+          repoURL: foo.bar
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: Pattern
+      - containsDocument:
+          kind: Pattern
+          apiVersion: gitops.hybrid-cloud-patterns.io/v1alpha1
+          name: release-test
+          namespace: openshift-operators
+
+  - it: Should output a pattern if repoUpstreamURL is set
+    set:
+      main:
+        git:
+          repoUpstreamURL: foo.bar
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: Pattern
+      - containsDocument:
+          kind: Pattern
+          apiVersion: gitops.hybrid-cloud-patterns.io/v1alpha1
+          name: release-test
+          namespace: openshift-operators
