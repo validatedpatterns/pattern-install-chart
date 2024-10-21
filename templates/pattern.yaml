@@ -23,6 +23,9 @@ spec:
 {{- end }} {{/* if .Values.main.multiSourceConfig.helmRepoUrl */}}
 {{- if .Values.main.multiSourceConfig.clusterGroupChartVersion }}
     clusterGroupChartVersion: {{ .Values.main.multiSourceConfig.clusterGroupChartVersion }}
+{{- else if and .Values.main.multiSourceConfig.clusterGroupChartGitRevision .Values.main.multiSourceConfig.clusterGroupGitRepoUrl }}
+    clusterGroupGitRepoUrl: {{ .Values.main.multiSourceConfig.clusterGroupGitRepoUrl }}
+    clusterGroupChartGitRevision: {{ .Values.main.multiSourceConfig.clusterGroupChartGitRevision }}
 {{- end }} {{/* if .Values.main.multiSourceConfig.clusterGroupChartVersion */}}
 {{- if .Values.main.analyticsUUID }}
   analyticsUUID: {{ .Values.main.analyticsUUID }}
