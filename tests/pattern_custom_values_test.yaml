@@ -31,6 +31,33 @@ tests:
       - equal:
           path: spec.multiSourceConfig.enabled
           value: true
+      - notExists:
+          path: spec.multiSourceConfig.clusterGroupGitRepoUrl
+      - notExists:
+          path: spec.multiSourceConfig.clusterGroupChartGitRevision
+
+  - it: "should not include clusterGroupGitRepoUrl and clusterGroupChartGitRevision when clusterGroupChartVersion is set"
+    set:
+      main.multiSourceConfig.clusterGroupChartVersion: "6.6.6"
+    asserts:
+      - notExists:
+          path: spec.multiSourceConfig.clusterGroupGitRepoUrl
+      - notExists:
+          path: spec.multiSourceConfig.clusterGroupChartGitRevision
+
+  - it: "should include clusterGroupGitRepoUrl and clusterGroupChartGitRevision when clusterGroupChartVersion is not set"
+    set:
+      main.multiSourceConfig.clusterGroupChartGitRevision: "test-branch"
+      main.multiSourceConfig.clusterGroupGitRepoUrl: "https://github.com/custom/clustergroup-chart"
+    asserts:
+      - equal:
+          path: spec.multiSourceConfig.clusterGroupGitRepoUrl
+          value: "https://github.com/custom/clustergroup-chart"
+      - equal:
+          path: spec.multiSourceConfig.clusterGroupChartGitRevision
+          value: test-branch
+      - notExists:
+          path: spec.multiSourceConfig.clusterGroupChartVersion
 
   - it: "should include originRepo when repoUpstreamURL is set"
     set:
