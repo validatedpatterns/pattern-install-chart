@@ -18,7 +18,7 @@ tests:
           value: redhat-operators
       - equal:
           path: data["gitops.channel"]
-          value: gitops-1.13
+          value: gitops-1.14
 
   - it: Should set gitops.catalogSource
     set:
