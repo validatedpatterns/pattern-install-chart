@@ -3,7 +3,7 @@ description: A Helm chart to build and deploy a Cloud Pattern via the patterns o
 keywords:
 - pattern
 name: pattern-install
-version: 0.0.5
+version: 0.0.6
 home: https://github.com/validatedpatterns/pattern-install-chart
 maintainers:
   - name: Validated Patterns Team
