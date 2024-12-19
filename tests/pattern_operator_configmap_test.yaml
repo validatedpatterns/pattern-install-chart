@@ -19,6 +19,15 @@ tests:
       - equal:
           path: data["gitops.channel"]
           value: gitops-1.15
+      - equal:
+          path: data["gitea.chartName"]
+          value: gitea
+      - equal:
+          path: data["gitea.chartVersion"]
+          value: "0.0.*"
+      - equal:
+          path: data["gitea.helmRepoUrl"]
+          value: https://charts.validatedpatterns.io/
 
   - it: Should set gitops.catalogSource
     set:
@@ -40,4 +49,22 @@ tests:
     asserts:
       - equal:
           path: data["gitops.channel"]
+          value: bar
+
+  - it: Should set gitea parameters
+    set:
+      main:
+        gitea:
+          helmRepoUrl: bar
+          chartVersion: "0.0.9"
+          chartName: "gitea-test"
+    asserts:
+      - equal:
+          path: data["gitea.chartName"]
+          value: gitea-test
+      - equal:
+          path: data["gitea.chartVersion"]
+          value: "0.0.9"
+      - equal:
+          path: data["gitea.helmRepoUrl"]
           value: bar
