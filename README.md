@@ -1,6 +1,6 @@
 # pattern-install
 
-![Version: 0.0.6](https://img.shields.io/badge/Version-0.0.6-informational?style=flat-square)
+![Version: 0.0.7](https://img.shields.io/badge/Version-0.0.7-informational?style=flat-square)
 
 A Helm chart to build and deploy a Cloud Pattern via the patterns operator
 
@@ -26,6 +26,10 @@ This chart is used by the Validated Patterns installation script that can be fou
 | main.git.repoURL | string | `"https://github.com/pattern-clone/mypattern"` | Repository URL pointing to the pattern |
 | main.git.repoUpstreamURL | string | `nil` | Setting this field will make it so that an in-cluster gitea instance will be spawned. `repoURL` will be ignored and the pattern will be deployed using the in-gitea URL |
 | main.git.revision | string | `"main"` | The branch or Git reference to use to deploy the pattern |
+| main.gitea | object | `{"chartName":"gitea","chartVersion":"0.0.*","helmRepoUrl":"https://charts.validatedpatterns.io/"}` | Settings releated to the in-cluster gitea installation |
+| main.gitea.chartName | string | `"gitea"` | Chart name for the in-cluster gitea installation |
+| main.gitea.chartVersion | string | `"0.0.*"` | Chart version to install |
+| main.gitea.helmRepoUrl | string | `"https://charts.validatedpatterns.io/"` | Helm Repository URL for the gitea chart |
 | main.gitops | object | depends on the individual settings | Settings related to the gitops operator |
 | main.gitops.channel | string | `"gitops-1.15"` | Default channel to install the gitops operator from |
 | main.gitops.operatorSource | string | `"redhat-operators"` | Source to be used to install the gitops operator from |

@@ -6,6 +6,9 @@ metadata:
 data:
   gitops.catalogSource: {{ .Values.main.gitops.operatorSource }}
   gitops.channel: {{ .Values.main.gitops.channel }}
+  gitea.chartName: {{ .Values.main.gitea.chartName }}
+  gitea.helmRepoUrl: {{ .Values.main.gitea.helmRepoUrl }}
+  gitea.chartVersion: {{ .Values.main.gitea.chartVersion }}
 
   # gitops.sourceNamespace: GitOpsDefaultCatalogSourceNamespace
   # gitops.installApprovalPlan: GitOpsDefaultApprovalPlan

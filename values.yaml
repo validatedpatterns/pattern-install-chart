@@ -25,6 +25,16 @@ main:
     # -- Source to be used to install the gitops operator from
     operatorSource: redhat-operators
 
+  # -- Settings releated to the in-cluster gitea installation
+  gitea:
+    # -- Chart name for the in-cluster gitea installation
+    chartName: gitea
+    # -- Helm Repository URL for the gitea chart
+    helmRepoUrl: https://charts.validatedpatterns.io/
+    # -- Chart version to install
+    chartVersion: "0.0.*"
+
+
   # Settings related to the multi source configuration of patterns
   # @default -- depends on the individual settings
   multiSourceConfig:
