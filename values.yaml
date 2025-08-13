@@ -71,3 +71,8 @@ main:
   tokenSecret: null
   # -- Namespace where the above secret will be
   tokenSecretNamespace: null
+
+  # -- Settings related to the segment.io analytics collection by the patterns operator
+  analytics:
+    # -- Whether analytics are disabled or not
+    disabled: false
