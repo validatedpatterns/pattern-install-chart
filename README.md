@@ -20,8 +20,8 @@ This chart is used by the Validated Patterns installation script that can be fou
 |-----|------|---------|-------------|
 | global.extraValueFiles | list | `[]` | List of additional value files to be passed to the pattern |
 | main | object | depends on the individual settings | main is used primarly for initial bootstrap pattern configuration |
-| main.analytics | object | `{"disabled":false}` | Settings related to the segment.io analytics collection by the patterns operator |
-| main.analytics.disabled | bool | `false` | Whether analytics are disabled or not |
+| main.analytics | object | `{"enabled":true}` | Settings related to the segment.io analytics collection by the patterns operator |
+| main.analytics.enabled | bool | `true` | Whether analytics are enabled or not |
 | main.clusterGroupName | string | `"default"` | Name of the clusterGroup to be used. Drives the clusterGroup chart |
 | main.experimentalCapabilities | string | `""` | String to enable certain experimental capabilities in the operator and the framework. Not needed unless you know exactly what you're doing. |
 | main.git | object | depends on the individual settings | Settings related to the Git repository used to deploy the pattern |

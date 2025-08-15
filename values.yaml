@@ -74,5 +74,5 @@ main:
 
   # -- Settings related to the segment.io analytics collection by the patterns operator
   analytics:
-    # -- Whether analytics are disabled or not
-    disabled: false
+    # -- Whether analytics are enabled or not
+    enabled: true
