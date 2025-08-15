@@ -9,6 +9,7 @@ data:
   gitea.chartName: {{ .Values.main.gitea.chartName }}
   gitea.helmRepoUrl: {{ .Values.main.gitea.helmRepoUrl }}
   gitea.chartVersion: {{ .Values.main.gitea.chartVersion }}
+  analytics.enabled: {{ .Values.main.analytics.enabled | quote }}
 
   # gitops.sourceNamespace: GitOpsDefaultCatalogSourceNamespace
   # gitops.installApprovalPlan: GitOpsDefaultApprovalPlan

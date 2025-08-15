@@ -1,6 +1,6 @@
 # pattern-install
 
-![Version: 0.0.7](https://img.shields.io/badge/Version-0.0.7-informational?style=flat-square)
+![Version: 0.0.8](https://img.shields.io/badge/Version-0.0.8-informational?style=flat-square)
 
 A Helm chart to build and deploy a Cloud Pattern via the patterns operator
 
@@ -20,6 +20,8 @@ This chart is used by the Validated Patterns installation script that can be fou
 |-----|------|---------|-------------|
 | global.extraValueFiles | list | `[]` | List of additional value files to be passed to the pattern |
 | main | object | depends on the individual settings | main is used primarly for initial bootstrap pattern configuration |
+| main.analytics | object | `{"enabled":true}` | Settings related to the segment.io analytics collection by the patterns operator |
+| main.analytics.enabled | bool | `true` | Whether analytics are enabled or not |
 | main.clusterGroupName | string | `"default"` | Name of the clusterGroup to be used. Drives the clusterGroup chart |
 | main.experimentalCapabilities | string | `""` | String to enable certain experimental capabilities in the operator and the framework. Not needed unless you know exactly what you're doing. |
 | main.git | object | depends on the individual settings | Settings related to the Git repository used to deploy the pattern |
@@ -56,4 +58,3 @@ patterns operator version:
 ```sh
 cp -v patterns-operator/config/crd/bases/gitops.hybrid-cloud-patterns.io_patterns.yaml ./crds/
 ```
-
