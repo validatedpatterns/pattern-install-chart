@@ -31,7 +31,7 @@ This chart is used by the Validated Patterns installation script that can be fou
 | main.gitea.chartVersion | string | `"0.0.*"` | Chart version to install |
 | main.gitea.helmRepoUrl | string | `"https://charts.validatedpatterns.io/"` | Helm Repository URL for the gitea chart |
 | main.gitops | object | depends on the individual settings | Settings related to the gitops operator |
-| main.gitops.channel | string | `"gitops-1.15"` | Default channel to install the gitops operator from |
+| main.gitops.channel | string | `"gitops-1.17"` | Default channel to install the gitops operator from |
 | main.gitops.operatorSource | string | `"redhat-operators"` | Source to be used to install the gitops operator from |
 | main.multiSourceConfig.clusterGroupChartVersion | string | `nil` | The clustergroup chart version to be used when deploying a pattern (defaults to 0.8.*) |
 | main.multiSourceConfig.enabled | bool | `false` | Enables a multisource configuration for the clustergroup chart |
