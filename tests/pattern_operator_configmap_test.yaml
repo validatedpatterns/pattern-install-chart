@@ -18,7 +18,7 @@ tests:
           value: redhat-operators
       - equal:
           path: data["gitops.channel"]
-          value: gitops-1.17
+          value: gitops-1.18
       - equal:
           path: data["gitea.chartName"]
           value: gitea
