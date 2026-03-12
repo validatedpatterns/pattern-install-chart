@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: patterns-operator-config
-  namespace: openshift-operators
+  namespace: {{ .Values.main.patternsOperator.subscriptionNamespace }}
 data:
   gitops.catalogSource: {{ .Values.main.gitops.operatorSource }}
   gitops.channel: {{ .Values.main.gitops.channel }}

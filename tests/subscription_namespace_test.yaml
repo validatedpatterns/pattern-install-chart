@@ -1,0 +1,69 @@
+suite: Test subscription namespace configuration
+templates:
+  - templates/subscription.yaml
+  - templates/pattern.yaml
+  - templates/pattern-operator-configmap.yaml
+tests:
+  - it: Should use default openshift-operators namespace for subscription
+    template: templates/subscription.yaml
+    asserts:
+      - equal:
+          path: metadata.namespace
+          value: openshift-operators
+      - equal:
+          path: metadata.labels["operators.coreos.com/patterns-operator.openshift-operators"]
+          value: ""
+
+  - it: Should use custom namespace for subscription
+    template: templates/subscription.yaml
+    set:
+      main:
+        patternsOperator:
+          subscriptionNamespace: custom-namespace
+    asserts:
+      - equal:
+          path: metadata.namespace
+          value: custom-namespace
+      - equal:
+          path: metadata.labels["operators.coreos.com/patterns-operator.custom-namespace"]
+          value: ""
+
+  - it: Should use default openshift-operators namespace for pattern
+    template: templates/pattern.yaml
+    release:
+      name: release-test
+    asserts:
+      - equal:
+          path: metadata.namespace
+          value: openshift-operators
+
+  - it: Should use custom namespace for pattern
+    template: templates/pattern.yaml
+    release:
+      name: release-test
+    set:
+      main:
+        patternsOperator:
+          subscriptionNamespace: custom-namespace
+    asserts:
+      - equal:
+          path: metadata.namespace
+          value: custom-namespace
+
+  - it: Should use default openshift-operators namespace for configmap
+    template: templates/pattern-operator-configmap.yaml
+    asserts:
+      - equal:
+          path: metadata.namespace
+          value: openshift-operators
+
+  - it: Should use custom namespace for configmap
+    template: templates/pattern-operator-configmap.yaml
+    set:
+      main:
+        patternsOperator:
+          subscriptionNamespace: custom-namespace
+    asserts:
+      - equal:
+          path: metadata.namespace
+          value: custom-namespace
