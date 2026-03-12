@@ -1,0 +1,13 @@
+{{- if ne .Values.main.patternsOperator.subscriptionNamespace "openshift-operators" }}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ .Values.main.patternsOperator.subscriptionNamespace }}
+---
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: patterns-operator-group
+  namespace: {{ .Values.main.patternsOperator.subscriptionNamespace }}
+spec: {}
+{{- end }}

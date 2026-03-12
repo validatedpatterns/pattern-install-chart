@@ -3,6 +3,7 @@ templates:
   - templates/subscription.yaml
   - templates/pattern.yaml
   - templates/pattern-operator-configmap.yaml
+  - templates/subscription-namespace.yaml
 tests:
   - it: Should use default openshift-operators namespace for subscription
     template: templates/subscription.yaml
@@ -61,3 +62,37 @@ tests:
       - equal:
           path: metadata.namespace
           value: custom-namespace
+
+  - it: Should not create namespace when using default openshift-operators
+    template: templates/subscription-namespace.yaml
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: Should create namespace when using custom namespace
+    template: templates/subscription-namespace.yaml
+    set:
+      main:
+        patternsOperator:
+          subscriptionNamespace: custom-namespace
+    asserts:
+      - hasDocuments:
+          count: 2
+      - isKind:
+          of: Namespace
+        documentIndex: 0
+      - equal:
+          path: metadata.name
+          value: custom-namespace
+        documentIndex: 0
+      - isKind:
+          of: OperatorGroup
+        documentIndex: 1
+      - equal:
+          path: metadata.namespace
+          value: custom-namespace
+        documentIndex: 1
+      - equal:
+          path: metadata.name
+          value: patterns-operator-group
+        documentIndex: 1
