@@ -19,7 +19,7 @@ This chart is used by the Validated Patterns installation script that can be fou
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | global.extraValueFiles | list | `[]` | List of additional value files to be passed to the pattern |
-| main | object | depends on the individual settings | main is used primarly for initial bootstrap pattern configuration |
+| main | object | depends on the individual settings | main is used primarily for initial bootstrap pattern configuration |
 | main.analytics | object | `{"enabled":true}` | Settings related to the segment.io analytics collection by the patterns operator |
 | main.analytics.enabled | bool | `true` | Whether analytics are enabled or not |
 | main | object | depends on the individual settings | main is used primarily for initial bootstrap pattern configuration |
