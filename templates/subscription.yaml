@@ -3,8 +3,6 @@ kind: Subscription
 metadata:
   name: patterns-operator
   namespace: {{ .Values.main.patternsOperator.subscriptionNamespace }}
-  labels:
-    operators.coreos.com/patterns-operator.{{ .Values.main.patternsOperator.subscriptionNamespace }}: ""
 spec:
   channel: {{ .Values.main.patternsOperator.channel }}
   installPlanApproval: {{ .Values.main.patternsOperator.installPlanApproval }}

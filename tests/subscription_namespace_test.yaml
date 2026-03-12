@@ -10,9 +10,6 @@ tests:
       - equal:
           path: metadata.namespace
           value: openshift-operators
-      - equal:
-          path: metadata.labels["operators.coreos.com/patterns-operator.openshift-operators"]
-          value: ""
 
   - it: Should use custom namespace for subscription
     template: templates/subscription.yaml
@@ -24,9 +21,6 @@ tests:
       - equal:
           path: metadata.namespace
           value: custom-namespace
-      - equal:
-          path: metadata.labels["operators.coreos.com/patterns-operator.custom-namespace"]
-          value: ""
 
   - it: Should use default openshift-operators namespace for pattern
     template: templates/pattern.yaml
