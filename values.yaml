@@ -2,7 +2,7 @@ global:
   # -- List of additional value files to be passed to the pattern
   extraValueFiles: []
 
-# -- main is used primarly for initial bootstrap pattern configuration
+# -- main is used primarily for initial bootstrap pattern configuration
 # @default -- depends on the individual settings
 main:
   # -- Settings related to the Git repository used to deploy the pattern
@@ -25,7 +25,7 @@ main:
     # -- Source to be used to install the gitops operator from
     operatorSource: redhat-operators
 
-  # -- Settings releated to the in-cluster gitea installation
+  # -- Settings related to the in-cluster gitea installation
   gitea:
     # -- Chart name for the in-cluster gitea installation
     chartName: gitea
