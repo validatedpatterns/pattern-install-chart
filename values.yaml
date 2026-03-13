@@ -60,6 +60,8 @@ main:
     installPlanApproval: Automatic
     # -- Source namespace to install the patterns operator from
     sourceNamespace: openshift-marketplace
+    # -- Namespace where the patterns operator subscription and related resources will be created
+    subscriptionNamespace: openshift-operators
     # -- Starting CSV for the install of the patterns operator
     startingCSV: null
 

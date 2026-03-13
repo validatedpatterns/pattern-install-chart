@@ -41,7 +41,7 @@ helm-package: ## Generates a local helm package
 
 .PHONY: helm-test-upload
 helm-test-upload: helm-package ## builds and uploads the helm package to HELM_TEST_REGISTRY which needs to be pre-set
-	if [ -z $(HELM_TEST_REGISTRY) ]; then echo "Please set HELM_TEST_REGISTRY"; exit 1; fi
+	if [ -z $(HELM_TEST_REGISTRY) ]; then echo "Please set HELM_TEST_REGISTRY (e.g. oci://quay.io/rhn_support_mbaldess/)"; exit 1; fi
 	echo "Remember to login via helm: 'echo pass | helm registry login -u<user> quay.io --password-stdin'"
 	helm push $(CHART_NAME)-$(CHART_VERSION).tgz $(HELM_TEST_REGISTRY)
 
