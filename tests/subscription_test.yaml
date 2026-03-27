@@ -61,3 +61,28 @@ tests:
       - notExists:
           path: spec.startingCSV
 
+  - it: Should not create subscription when patternsOperator is disabled
+    set:
+      main:
+        patternsOperator:
+          enableSubscription: false
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: Should create subscription when patternsOperator is explicitly enabled
+    set:
+      main:
+        patternsOperator:
+          enableSubscription: true
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: Subscription
+      - containsDocument:
+          kind: Subscription
+          apiVersion: operators.coreos.com/v1alpha1
+          name: patterns-operator
+          namespace: openshift-operators
+

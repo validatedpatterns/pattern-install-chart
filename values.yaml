@@ -52,6 +52,9 @@ main:
   # -- Settings related to the patterns operator installation
   # @default -- depends on the individual settings
   patternsOperator:
+    # -- Whether to create the Subscription (and Namespace/OperatorGroup) for the patterns operator.
+    # Set to false if the operator is already installed or managed externally.
+    enableSubscription: true
     # -- channel name to install the patterns operator from
     channel: fast
     # -- Source to be used to install the patterns operator from

@@ -40,6 +40,7 @@ This chart is used by the Validated Patterns installation script that can be fou
 | main.multiSourceConfig.helmRepoUrl | string | `nil` | The URL of the VP helm charts repository (defaults to https://charts.validatedpatterns.io) |
 | main.patternsOperator | object | depends on the individual settings | Settings related to the patterns operator installation |
 | main.patternsOperator.channel | string | `"fast"` | channel name to install the patterns operator from |
+| main.patternsOperator.enableSubscription | bool | `true` | Whether to create the Subscription (and Namespace/OperatorGroup) for the patterns operator. Set to false if the operator is already installed or managed externally. |
 | main.patternsOperator.installPlanApproval | string | `"Automatic"` | Installation plan approval of the patterns operator |
 | main.patternsOperator.source | string | `"community-operators"` | Source to be used to install the patterns operator from |
 | main.patternsOperator.sourceNamespace | string | `"openshift-marketplace"` | Source namespace to install the patterns operator from |
