@@ -96,3 +96,60 @@ tests:
           path: metadata.name
           value: patterns-operator-group
         documentIndex: 1
+
+  - it: Should not create namespace or operatorgroup when patternsOperator is disabled with default namespace
+    template: templates/subscription-namespace.yaml
+    set:
+      main:
+        patternsOperator:
+          enableSubscription: false
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: Should not create namespace or operatorgroup when patternsOperator is disabled with custom namespace
+    template: templates/subscription-namespace.yaml
+    set:
+      main:
+        patternsOperator:
+          enableSubscription: false
+          subscriptionNamespace: custom-namespace
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: Should not create subscription when patternsOperator is disabled
+    template: templates/subscription.yaml
+    set:
+      main:
+        patternsOperator:
+          enableSubscription: false
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: Should still create pattern when patternsOperator is disabled
+    template: templates/pattern.yaml
+    release:
+      name: release-test
+    set:
+      main:
+        patternsOperator:
+          enableSubscription: false
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: Pattern
+
+  - it: Should still create configmap when patternsOperator is disabled
+    template: templates/pattern-operator-configmap.yaml
+    set:
+      main:
+        patternsOperator:
+          enableSubscription: false
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: ConfigMap

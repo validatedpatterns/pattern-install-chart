@@ -1,4 +1,4 @@
-{{- if ne .Values.main.patternsOperator.subscriptionNamespace "openshift-operators" }}
+{{- if and .Values.main.patternsOperator.enableSubscription (ne .Values.main.patternsOperator.subscriptionNamespace "openshift-operators") }}
 apiVersion: v1
 kind: Namespace
 metadata:
