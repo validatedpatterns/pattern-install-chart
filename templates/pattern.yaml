@@ -5,7 +5,13 @@ metadata:
   name: {{ .Release.Name }}
   namespace: {{ .Values.main.patternsOperator.subscriptionNamespace }}
 spec:
+{{- if and .Values.main.variant .Values.main.clusterGroupName }}
+  {{- fail "main.variant and main.clusterGroupName are mutually exclusive, please set only one" }}
+{{- else if .Values.main.variant }}
+  variant: {{ .Values.main.variant }}
+{{- else if .Values.main.clusterGroupName }}
   clusterGroupName: {{ .Values.main.clusterGroupName }}
+{{- end }}
   gitSpec:
 {{- if .Values.main.git.repoUpstreamURL }}
     originRepo: {{ .Values.main.git.repoUpstreamURL }}

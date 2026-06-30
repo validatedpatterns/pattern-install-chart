@@ -4,9 +4,10 @@ templates:
 release:
   name: release-custom-test
 tests:
-  - it: "should render Pattern with required fields"
+  - it: "should render Pattern with clusterGroupName when main.clusterGroupName is set"
     set:
       main.clusterGroupName: "my-cluster-group"
+      main.variant: null
       main.git.repoURL: "https://github.com/example/repo.git"
       main.git.revision: "main"
       main.multiSourceConfig.enabled: true
@@ -22,6 +23,8 @@ tests:
       - equal:
           path: spec.clusterGroupName
           value: "my-cluster-group"
+      - notExists:
+          path: spec.variant
       - equal:
           path: spec.gitSpec.targetRepo
           value: "https://github.com/example/repo.git"
@@ -35,6 +38,29 @@ tests:
           path: spec.multiSourceConfig.clusterGroupGitRepoUrl
       - notExists:
           path: spec.multiSourceConfig.clusterGroupChartGitRevision
+
+  - it: "should render Pattern with variant when main.variant is set"
+    set:
+      main.variant: "my-variant"
+      main.git.repoURL: "https://github.com/example/repo.git"
+      main.git.revision: "main"
+      main.multiSourceConfig.enabled: true
+    asserts:
+      - isKind:
+          of: Pattern
+      - equal:
+          path: spec.variant
+          value: "my-variant"
+      - notExists:
+          path: spec.clusterGroupName
+
+  - it: "should fail when both main.variant and main.clusterGroupName are set"
+    set:
+      main.variant: "my-variant"
+      main.clusterGroupName: "my-cluster-group"
+    asserts:
+      - failedTemplate:
+          errorMessage: "main.variant and main.clusterGroupName are mutually exclusive, please set only one"
 
   - it: "should not include clusterGroupGitRepoUrl and clusterGroupChartGitRevision when clusterGroupChartVersion is set"
     set:
