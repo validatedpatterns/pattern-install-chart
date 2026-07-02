@@ -56,6 +56,8 @@ spec:
                 type: string
               clusterGroupName:
                 type: string
+              variant:
+                type: string
               experimentalCapabilities:
                 description: Comma separated capabilities to enable certain experimental
                   features
@@ -153,7 +155,6 @@ spec:
                     type: string
                 type: object
             required:
-            - clusterGroupName
             - gitSpec
             type: object
           status:

@@ -5,6 +5,8 @@ release:
   name: release-test
 tests:
   - it: Should output default values
+    set:
+      main.variant: "default"
     asserts:
       - hasDocuments:
           count: 1
@@ -16,8 +18,10 @@ tests:
           name: release-test
           namespace: openshift-operators
       - equal:
+          path: spec.variant
+          value: "default"
+      - notExists:
           path: spec.clusterGroupName
-          value: default
       - equal:
           path: spec.gitSpec.targetRepo
           value: https://github.com/pattern-clone/mypattern

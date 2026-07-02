@@ -5,6 +5,8 @@ release:
   name: release-test
 tests:
   - it: gitspec.targetRepo should match snapshot
+    set:
+      main.variant: "default"
     asserts:
       - matchSnapshot:
           path: spec.gitSpec.targetRepo

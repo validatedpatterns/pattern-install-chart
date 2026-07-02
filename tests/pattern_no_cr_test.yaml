@@ -17,6 +17,7 @@ tests:
   - it: Should output a pattern if repoURL is set
     set:
       main:
+        variant: "default"
         git:
           repoURL: foo.bar
     asserts:
@@ -33,6 +34,7 @@ tests:
   - it: Should output a pattern if repoUpstreamURL is set
     set:
       main:
+        variant: "default"
         git:
           repoUpstreamURL: foo.bar
     asserts:
