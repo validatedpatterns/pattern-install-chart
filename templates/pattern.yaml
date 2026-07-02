@@ -11,6 +11,8 @@ spec:
   variant: {{ .Values.main.variant }}
 {{- else if .Values.main.clusterGroupName }}
   clusterGroupName: {{ .Values.main.clusterGroupName }}
+{{- else }}
+  {{- fail "either main.variant or main.clusterGroupName must be set" }}
 {{- end }}
   gitSpec:
 {{- if .Values.main.git.repoUpstreamURL }}

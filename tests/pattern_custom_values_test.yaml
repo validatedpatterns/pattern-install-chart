@@ -62,8 +62,17 @@ tests:
       - failedTemplate:
           errorMessage: "main.variant and main.clusterGroupName are mutually exclusive, please set only one"
 
+  - it: "should fail when neither main.variant nor main.clusterGroupName is set"
+    set:
+      main.variant: null
+      main.clusterGroupName: null
+    asserts:
+      - failedTemplate:
+          errorMessage: "either main.variant or main.clusterGroupName must be set"
+
   - it: "should not include clusterGroupGitRepoUrl and clusterGroupChartGitRevision when clusterGroupChartVersion is set"
     set:
+      main.variant: "default"
       main.multiSourceConfig.clusterGroupChartVersion: "6.6.6"
     asserts:
       - notExists:
@@ -73,6 +82,7 @@ tests:
 
   - it: "should include clusterGroupGitRepoUrl and clusterGroupChartGitRevision when clusterGroupChartVersion is not set"
     set:
+      main.variant: "default"
       main.multiSourceConfig.clusterGroupChartGitRevision: "test-branch"
       main.multiSourceConfig.clusterGroupGitRepoUrl: "https://github.com/custom/clustergroup-chart"
     asserts:
@@ -87,6 +97,7 @@ tests:
 
   - it: "should include originRepo when repoUpstreamURL is set"
     set:
+      main.variant: "default"
       main.git.repoUpstreamURL: "https://github.com/example/upstream.git"
     asserts:
       - exists:
@@ -97,6 +108,7 @@ tests:
 
   - it: "should not include tokenSecret and tokenSecretNamespace when only tokenSecret is set"
     set:
+      main.variant: "default"
       main.tokenSecret: "my-token-secret"
     asserts:
       - notExists:
@@ -106,6 +118,7 @@ tests:
 
   - it: "should not include tokenSecret and tokenSecretNamespace when only tokenSecretNamespace is set"
     set:
+      main.variant: "default"
       main.tokenSecretNamespace: "my-token-namespace"
     asserts:
       - notExists:
@@ -115,6 +128,7 @@ tests:
 
   - it: "should include tokenSecret and tokenSecretNamespace when both are set"
     set:
+      main.variant: "default"
       main.tokenSecret: "my-token-secret"
       main.tokenSecretNamespace: "my-token-namespace"
     asserts:
@@ -131,6 +145,7 @@ tests:
 
   - it: "should include helmRepoUrl when multiSourceConfig.helmRepoUrl is set"
     set:
+      main.variant: "default"
       main.multiSourceConfig.helmRepoUrl: "https://charts.example.com/"
     asserts:
       - exists:
@@ -141,6 +156,7 @@ tests:
 
   - it: "should include clusterGroupChartVersion when set"
     set:
+      main.variant: "default"
       main.multiSourceConfig.clusterGroupChartVersion: "1.0.0"
     asserts:
       - exists:
@@ -151,6 +167,7 @@ tests:
 
   - it: "should include analyticsUUID when set"
     set:
+      main.variant: "default"
       main.analyticsUUID: "uuid-1234"
     asserts:
       - exists:
@@ -161,6 +178,7 @@ tests:
 
   - it: "should include experimentalCapabilities when set"
     set:
+      main.variant: "default"
       main.experimentalCapabilities: "some-feature"
     asserts:
       - exists:
@@ -172,6 +190,7 @@ tests:
   - it: "should include extraParameters when set"
     set:
       main:
+        variant: "default"
         extraParameters:
           - name: "param1"
             value: "value1"
@@ -195,6 +214,8 @@ tests:
 
   - it: "should include extraValueFiles when set"
     set:
+      main:
+        variant: "default"
       global:
         extraValueFiles:
           - "file1.yaml"

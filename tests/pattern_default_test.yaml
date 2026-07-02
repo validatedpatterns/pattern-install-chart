@@ -5,6 +5,8 @@ release:
   name: release-test
 tests:
   - it: Should output default values
+    set:
+      main.variant: "default"
     asserts:
       - hasDocuments:
           count: 1
@@ -15,8 +17,9 @@ tests:
           apiVersion: gitops.hybrid-cloud-patterns.io/v1alpha1
           name: release-test
           namespace: openshift-operators
-      - notExists:
+      - equal:
           path: spec.variant
+          value: "default"
       - notExists:
           path: spec.clusterGroupName
       - equal:

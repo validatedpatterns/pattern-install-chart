@@ -7,6 +7,8 @@ templates:
 tests:
   - it: Should use default openshift-operators namespace for subscription
     template: templates/subscription.yaml
+    set:
+      main.variant: "default"
     asserts:
       - equal:
           path: metadata.namespace
@@ -16,6 +18,7 @@ tests:
     template: templates/subscription.yaml
     set:
       main:
+        variant: "default"
         patternsOperator:
           subscriptionNamespace: custom-namespace
     asserts:
@@ -27,6 +30,8 @@ tests:
     template: templates/pattern.yaml
     release:
       name: release-test
+    set:
+      main.variant: "default"
     asserts:
       - equal:
           path: metadata.namespace
@@ -38,6 +43,7 @@ tests:
       name: release-test
     set:
       main:
+        variant: "default"
         patternsOperator:
           subscriptionNamespace: custom-namespace
     asserts:
@@ -47,6 +53,8 @@ tests:
 
   - it: Should use default openshift-operators namespace for configmap
     template: templates/pattern-operator-configmap.yaml
+    set:
+      main.variant: "default"
     asserts:
       - equal:
           path: metadata.namespace
@@ -56,6 +64,7 @@ tests:
     template: templates/pattern-operator-configmap.yaml
     set:
       main:
+        variant: "default"
         patternsOperator:
           subscriptionNamespace: custom-namespace
     asserts:
@@ -65,6 +74,8 @@ tests:
 
   - it: Should not create namespace when using default openshift-operators
     template: templates/subscription-namespace.yaml
+    set:
+      main.variant: "default"
     asserts:
       - hasDocuments:
           count: 0
@@ -73,6 +84,7 @@ tests:
     template: templates/subscription-namespace.yaml
     set:
       main:
+        variant: "default"
         patternsOperator:
           subscriptionNamespace: custom-namespace
     asserts:
@@ -101,6 +113,7 @@ tests:
     template: templates/subscription-namespace.yaml
     set:
       main:
+        variant: "default"
         patternsOperator:
           enableSubscription: false
     asserts:
@@ -111,6 +124,7 @@ tests:
     template: templates/subscription-namespace.yaml
     set:
       main:
+        variant: "default"
         patternsOperator:
           enableSubscription: false
           subscriptionNamespace: custom-namespace
@@ -122,6 +136,7 @@ tests:
     template: templates/subscription.yaml
     set:
       main:
+        variant: "default"
         patternsOperator:
           enableSubscription: false
     asserts:
@@ -134,6 +149,7 @@ tests:
       name: release-test
     set:
       main:
+        variant: "default"
         patternsOperator:
           enableSubscription: false
     asserts:
@@ -146,6 +162,7 @@ tests:
     template: templates/pattern-operator-configmap.yaml
     set:
       main:
+        variant: "default"
         patternsOperator:
           enableSubscription: false
     asserts:
