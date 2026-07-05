@@ -24,6 +24,9 @@ main:
     channel: "gitops-1.21"
     # -- Source to be used to install the gitops operator from
     operatorSource: redhat-operators
+    # -- Comma-separated list of additional ArgoCD admin groups.
+    # Only used when argoRBAC is not set.
+    additionalArgoAdmins: ""
 
   # -- Settings related to the in-cluster gitea installation
   gitea:

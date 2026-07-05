@@ -51,6 +51,21 @@ tests:
           path: data["gitops.channel"]
           value: bar
 
+  - it: Should not include gitops.additionalArgoAdmins by default
+    asserts:
+      - notExists:
+          path: data["gitops.additionalArgoAdmins"]
+
+  - it: Should set gitops.additionalArgoAdmins
+    set:
+      main:
+        gitops:
+          additionalArgoAdmins: "group1,group2"
+    asserts:
+      - equal:
+          path: data["gitops.additionalArgoAdmins"]
+          value: "group1,group2"
+
   - it: Should set gitea parameters
     set:
       main:
