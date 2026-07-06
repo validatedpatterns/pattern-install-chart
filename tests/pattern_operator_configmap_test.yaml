@@ -66,6 +66,23 @@ tests:
           path: data["gitops.additionalArgoAdmins"]
           value: "group1,group2"
 
+  - it: Should not include gitops.argoRBAC by default
+    asserts:
+      - notExists:
+          path: data["gitops.argoRBAC"]
+
+  - it: Should set gitops.argoRBAC
+    set:
+      main:
+        gitops:
+          argoRBAC: |
+            defaultPolicy: "role:readonly"
+            policy: "g, custom-admins, role:admin"
+            scopes: "[groups,email]"
+    asserts:
+      - exists:
+          path: data["gitops.argoRBAC"]
+
   - it: Should set gitea parameters
     set:
       main:

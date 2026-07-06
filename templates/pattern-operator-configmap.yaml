@@ -13,6 +13,10 @@ data:
   {{- if .Values.main.gitops.additionalArgoAdmins }}
   gitops.additionalArgoAdmins: {{ .Values.main.gitops.additionalArgoAdmins }}
   {{- end }}
+  {{- if .Values.main.gitops.argoRBAC }}
+  gitops.argoRBAC: |
+{{ .Values.main.gitops.argoRBAC | indent 4 }}
+  {{- end }}
 
   # gitops.sourceNamespace: GitOpsDefaultCatalogSourceNamespace
   # gitops.installApprovalPlan: GitOpsDefaultApprovalPlan
