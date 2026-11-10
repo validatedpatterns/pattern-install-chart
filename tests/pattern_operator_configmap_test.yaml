@@ -102,6 +102,182 @@ tests:
       - exists:
           path: data["gitops.customArgoYaml"]
 
+  - it: Should not include gitops.applicationHealthCheckEnabled by default
+    asserts:
+      - notExists:
+          path: data["gitops.applicationHealthCheckEnabled"]
+
+  - it: Should set gitops.applicationHealthCheckEnabled as a string
+    set:
+      main:
+        gitops:
+          applicationHealthCheckEnabled: "true"
+    asserts:
+      - equal:
+          path: data["gitops.applicationHealthCheckEnabled"]
+          value: "true"
+
+  - it: Should accept gitops.applicationHealthCheckEnabled false
+    set:
+      main:
+        gitops:
+          applicationHealthCheckEnabled: "false"
+    asserts:
+      - equal:
+          path: data["gitops.applicationHealthCheckEnabled"]
+          value: "false"
+
+  - it: Should reject gitops.applicationHealthCheckEnabled yes
+    set:
+      main:
+        gitops:
+          applicationHealthCheckEnabled: "yes"
+    asserts:
+      - failedTemplate:
+          errorMessage: "applicationHealthCheckEnabled must be \"true\" or \"false\""
+
+  - it: Should reject gitops.applicationHealthCheckEnabled 1
+    set:
+      main:
+        gitops:
+          applicationHealthCheckEnabled: "1"
+    asserts:
+      - failedTemplate:
+          errorMessage: "applicationHealthCheckEnabled must be \"true\" or \"false\""
+
+  - it: Should not include gitops.customHealthChecks by default
+    asserts:
+      - notExists:
+          path: data["gitops.customHealthChecks"]
+
+  - it: Should set gitops.customHealthChecks from a string
+    set:
+      main:
+        gitops:
+          customHealthChecks: |
+            - group: example.com
+              kind: MyKind
+              check: |
+                hs = {}
+                hs.status = "Healthy"
+                return hs
+    asserts:
+      - equal:
+          path: data["gitops.customHealthChecks"]
+          value: |
+            - group: example.com
+              kind: MyKind
+              check: |
+                hs = {}
+                hs.status = "Healthy"
+                return hs
+
+  - it: Should set gitops.customHealthChecks from a native YAML list
+    set:
+      main:
+        gitops:
+          customHealthChecks:
+            - group: example.com
+              kind: MyKind
+    asserts:
+      - equal:
+          path: data["gitops.customHealthChecks"]
+          value: |
+            - group: example.com
+              kind: MyKind
+
+  - it: Should not include gitops.sourceNamespace by default
+    asserts:
+      - notExists:
+          path: data["gitops.sourceNamespace"]
+
+  - it: Should set gitops.sourceNamespace
+    set:
+      main:
+        gitops:
+          sourceNamespace: openshift-marketplace
+    asserts:
+      - equal:
+          path: data["gitops.sourceNamespace"]
+          value: "openshift-marketplace"
+
+  - it: Should quote gitops.sourceNamespace to survive YAML round-trip
+    set:
+      main:
+        gitops:
+          sourceNamespace: "null"
+    asserts:
+      - isNotNull:
+          path: data["gitops.sourceNamespace"]
+
+  - it: Should not include gitops.installApprovalPlan by default
+    asserts:
+      - notExists:
+          path: data["gitops.installApprovalPlan"]
+
+  - it: Should set gitops.installApprovalPlan
+    set:
+      main:
+        gitops:
+          installApprovalPlan: Manual
+    asserts:
+      - equal:
+          path: data["gitops.installApprovalPlan"]
+          value: "Manual"
+
+  - it: Should accept gitops.installApprovalPlan Automatic
+    set:
+      main:
+        gitops:
+          installApprovalPlan: Automatic
+    asserts:
+      - equal:
+          path: data["gitops.installApprovalPlan"]
+          value: "Automatic"
+
+  - it: Should reject gitops.installApprovalPlan manual (wrong case)
+    set:
+      main:
+        gitops:
+          installApprovalPlan: manual
+    asserts:
+      - failedTemplate:
+          errorMessage: "installApprovalPlan must be \"Automatic\" or \"Manual\""
+
+  - it: Should reject gitops.installApprovalPlan MANUAL (wrong case)
+    set:
+      main:
+        gitops:
+          installApprovalPlan: MANUAL
+    asserts:
+      - failedTemplate:
+          errorMessage: "installApprovalPlan must be \"Automatic\" or \"Manual\""
+
+  - it: Should not include gitops.csv by default
+    asserts:
+      - notExists:
+          path: data["gitops.csv"]
+
+  - it: Should set gitops.csv
+    set:
+      main:
+        gitops:
+          csv: openshift-gitops-operator.v1.22.0
+    asserts:
+      - equal:
+          path: data["gitops.csv"]
+          value: "openshift-gitops-operator.v1.22.0"
+
+  - it: Should quote gitops.csv to prevent float truncation
+    set:
+      main:
+        gitops:
+          csv: 1.10
+    asserts:
+      - equal:
+          path: data["gitops.csv"]
+          value: "1.1"
+
   - it: Should set gitea parameters
     set:
       main:
