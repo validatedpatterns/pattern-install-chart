@@ -1,6 +1,6 @@
 # pattern-install
 
-![Version: 0.0.19](https://img.shields.io/badge/Version-0.0.19-informational?style=flat-square)
+![Version: 0.0.20](https://img.shields.io/badge/Version-0.0.20-informational?style=flat-square)
 
 A Helm chart to build and deploy a Cloud Pattern via the patterns operator
 
